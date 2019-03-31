@@ -6,14 +6,9 @@ const constants = require('./config/constants');
 //Connect to MongoDB
 mongoose.Promise = global.Promise;
 mongoose.set('debug', true);
-mongoose.connect(
-  constants.mongoURI,
-  {
-    keepAlive: true,
-    reconnectTries: Number.MAX_VALUE,
-    useMongoClient: true,
-  },
-);
+
+mongoose.connect(constants.mongoURI);
+
 
 require('./models/UrlShorten');
 const app = express();

@@ -17,23 +17,34 @@ module.exports = app => {
   });
 
   app.post('/api/item', async (req, res) => {
+    console.log("IN");
     const { shortBaseUrl, originalUrl } = req.body;
     if (validUrl.isUri(shortBaseUrl)) {
     } else {
       return res.status(404).json('Invalid Base Url format');
     }
+    console.log("IN2");
 
     const updatedAt = new Date();
     const queryOptions = { originalUrl };
     if (validUrl.isUri(originalUrl)) {
       let urlData;
+      console.log("IN3");
+
       try {
         // Find the item is in the cache
-        urlData = await cache.getFromCache('originalUrl', JSON.stringify(queryOptions));
+       // urlData = await cache.getFromCache('originalUrl', JSON.stringify(queryOptions));
+        console.log("IN4");
+
         if (!urlData) {
+          console.log("IN2225");
+
           // Find the item is in the database
           urlData = await UrlShorten.findOne(queryOptions).exec();
+          console.log("sadasdIN5");
+
         }
+        console.log("IN5");
 
         if (urlData) {
           res.status(200).json(urlData);
